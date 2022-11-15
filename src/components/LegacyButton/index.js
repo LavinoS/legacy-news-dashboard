@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LegacyParagraph } from '../index';
 
 const StyledButton = styled.button`
   width: 100%;
@@ -8,17 +9,19 @@ const StyledButton = styled.button`
   margin: 0;
   background: #000;
   color: #fff;
+  cursor: pointer;
 `;
 
 export default ({
   className,
   style,
   onClick,
-  children,
   ariaLabel,
+  paragraphClass,
+  text,
+  paragraphStyle,
   ...otherProps
 }) => {
-  //FIXME: After creation of paragraph component, add it as children of button
   return (
     <StyledButton
       className={className}
@@ -27,7 +30,11 @@ export default ({
       aria-label={ariaLabel}
       {...otherProps}
     >
-      {children}
+      <LegacyParagraph
+        className={paragraphClass}
+        style={paragraphStyle}
+        text={text}
+      />
     </StyledButton>
   );
 };
