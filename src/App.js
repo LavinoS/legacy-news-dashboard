@@ -1,7 +1,12 @@
 import React from 'react';
+import SingleStoreApplication from './shared/containers/singleStoreApplication';
 
-function App() {
-  return <div className="App"></div>;
-}
+const App = () => {
+  return (
+    <div className="App">
+      <SingleStoreApplication />
+    </div>
+  );
+};
 
 export default App;
