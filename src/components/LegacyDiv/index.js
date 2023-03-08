@@ -9,11 +9,17 @@ const StyledDiv = styled.div`
   align-items: center;
   height: fit-content;
   background: transparent;
+  ${(props) => props.theme.toRawCss(props.styleProps || {})};
 `;
 
-export default ({ className, style, children, ...otherProps }) => {
+export default ({ className, styleProps, style, children, ...otherProps }) => {
   return (
-    <StyledDiv className={className} style={style} {...otherProps}>
+    <StyledDiv
+      styleProps={styleProps}
+      className={className}
+      style={style}
+      {...otherProps}
+    >
       {children}
     </StyledDiv>
   );
