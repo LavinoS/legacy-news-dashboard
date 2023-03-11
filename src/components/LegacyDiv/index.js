@@ -9,6 +9,7 @@ const StyledDiv = styled.div`
   align-items: center;
   height: fit-content;
   background: transparent;
+  position: relative;
   ${(props) => props.theme.toRawCss(props.styleProps || {})};
 `;
 

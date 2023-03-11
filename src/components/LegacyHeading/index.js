@@ -7,13 +7,15 @@ const HeadingBase = ({ variant, as: Component = variant, ...props }) => (
 );
 
 const StyledHeading = styled(HeadingBase)`
-  margin: 0;
+  text-align: center;
+
+  ${(props) => props.theme.toRawCss(props.styleProps)}
 `;
 
 export default ({
   className,
   variant = headingVariants.H1,
-  style,
+  styleProps,
   text,
   ...otherProps
 }) => {
@@ -21,7 +23,7 @@ export default ({
     <StyledHeading
       variant={variant}
       className={className}
-      style={style}
+      styleProps={styleProps}
       {...otherProps}
     >
       {text}

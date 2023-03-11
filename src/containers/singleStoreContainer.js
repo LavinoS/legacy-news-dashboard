@@ -7,9 +7,13 @@ export default (props) => {
 
   return (
     <>
-      <Routes>
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
+      <header></header>
+      <main>
+        <Routes>
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </main>
+      <footer></footer>
     </>
   );
 };
