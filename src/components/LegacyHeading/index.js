@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { headingVariants } from '../../types/headingVariants';
 
-const HeadingBase = ({ variant, as: Component = variant, ...props }) => (
-  <Component {...props} />
-);
+const HeadingBase = ({
+  variant,
+  styleProps: _styleProps,
+  as: Component = variant,
+  ...props
+}) => <Component {...props} />;
 
 const StyledHeading = styled(HeadingBase)`
   text-align: center;

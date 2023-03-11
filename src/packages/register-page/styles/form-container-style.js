@@ -1,7 +1,7 @@
 const formContainerStyle = {
   ALL_DEVICES: {
     width: '100%',
-    height: '60%',
+    height: '600px',
     background: '#FFFFFF',
     zIndex: 1,
     maxWidth: '450px',
@@ -12,6 +12,9 @@ const formContainerStyle = {
     padding: 24,
     justifyContent: 'space-between',
     flexDirection: 'column',
+  },
+  MOBILE: {
+    height: 'fit-content',
   },
 };
 

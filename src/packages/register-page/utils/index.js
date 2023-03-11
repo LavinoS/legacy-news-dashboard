@@ -10,7 +10,10 @@ export const registerFormConfiguration = [
     fieldContainerStyleProps: {
       ALL_DEVICES: {
         margin: '16px 0',
-        paddingRight: '10px',
+        paddingRight: '20px',
+      },
+      MOBILE: {
+        padding: 0,
       },
     },
     labelStyleProps: {},
@@ -40,7 +43,6 @@ export const registerFormConfiguration = [
     fieldContainerStyleProps: {
       ALL_DEVICES: {
         margin: '16px 0',
-        paddingLeft: '10px',
       },
     },
     labelStyleProps: {},

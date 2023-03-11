@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   DarkOverlay,
   LegacyButton,
@@ -22,6 +22,12 @@ import { registerFormConfiguration } from './utils';
 import { headingVariants } from '../../types/headingVariants';
 
 const RegisterPage = (props) => {
+  const { injectedMethods: { registerMethod } = {} } = props;
+
+  const [registerDate, setRegisterData] = useState({});
+
+  console.log(registerDate);
+
   return (
     <LegacyDiv styleProps={DEFAULT_MAIN_CONTAINER_STYLE}>
       <DarkOverlay />
@@ -56,6 +62,7 @@ const RegisterPage = (props) => {
         <LegacyForm
           styleProps={FORM_STYLE_PROPS}
           formConfiguration={registerFormConfiguration}
+          sendFormData={setRegisterData}
         />
         <LegacyDiv styleProps={BUTTON_CONTAINER_STYLE}>
           <LegacyButton styleProps={BUTTON_STYLE} text="REGISTER" />

@@ -7,6 +7,10 @@ const formStyleProps = {
     height: 'fit-content',
     alignSelf: 'end',
   },
+
+  MOBILE: {
+    display: 'flex',
+  },
 };
 
 export default formStyleProps;
