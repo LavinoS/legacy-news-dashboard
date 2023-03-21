@@ -10,11 +10,14 @@ const StyledButton = styled.button`
   background: #000;
   color: #fff;
   cursor: pointer;
+  text-align: center;
+
+  ${(props) => props.theme.toRawCss(props.styleProps)}
 `;
 
 export default ({
   className,
-  style,
+  styleProps,
   onClick,
   ariaLabel,
   paragraphClass,
@@ -25,14 +28,14 @@ export default ({
   return (
     <StyledButton
       className={className}
-      style={style}
+      styleProps={styleProps}
       onClick={onClick}
       aria-label={ariaLabel}
       {...otherProps}
     >
       <LegacyParagraph
         className={paragraphClass}
-        style={paragraphStyle}
+        styleProps={paragraphStyle}
         text={text}
       />
     </StyledButton>

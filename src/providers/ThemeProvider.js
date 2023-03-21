@@ -3,6 +3,7 @@ import { ThemeProvider, css } from 'styled-components';
 import convertStyleToCSS from './helpers/convertStyleToCSS';
 import ScreenTypes from '../types/screenTypes';
 import mediaScreenPlaceholders from '../types/mediaScreenPlaceholders';
+import GlobalStyles from './global/globalStyles';
 
 const toRawCss = (styleProps) => {
   const devices = Object.keys(styleProps || []);
@@ -31,6 +32,11 @@ const toRawCss = (styleProps) => {
 
 export default ({ children }) => {
   return (
-    <ThemeProvider theme={{ toRawCss: toRawCss }}>{children}</ThemeProvider>
+    <ThemeProvider theme={{ toRawCss: toRawCss }}>
+      <>
+        <GlobalStyles />
+        {children}
+      </>
+    </ThemeProvider>
   );
 };

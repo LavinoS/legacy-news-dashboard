@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchUsers } from '../store/site/siteDispatchProps';
+import { registerMethod } from '../store/site/siteDispatchProps';
 import dispatchPropsBuilder from '../helpers/dispatchPropsBuilder';
 import singleStoreContainer from '../../containers/singleStoreContainer';
 
@@ -8,7 +8,7 @@ export const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatchPropsBuilder({
-  fetchUsers,
+  registerMethod,
 });
 
 export default connect(

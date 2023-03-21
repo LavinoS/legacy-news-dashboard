@@ -70,5 +70,18 @@ export default ({ baseUrl, ...extraConfigs }) => {
         cacheable,
       });
     },
+
+    post: async function (
+      url,
+      { payload = {}, config = {}, cacheable = false } = {},
+    ) {
+      return makeRequest({
+        url,
+        method: 'post',
+        payload,
+        config,
+        cacheable,
+      });
+    },
   };
 };
