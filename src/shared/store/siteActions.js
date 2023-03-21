@@ -5,6 +5,7 @@ export const fetchUsersAction = () => async () => {
   console.log(json, status);
 };
 
-export const registerAction = () => async () => {
-  console.log('skema tz');
+export const registerAction = (payload) => async () => {
+  const { json, status } = await api.user.register(payload);
+  console.log(json, status);
 };

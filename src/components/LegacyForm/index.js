@@ -1,11 +1,12 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { LegacyDiv } from '../index';
+import { LegacyButton, LegacyDiv } from '../index';
 import { debounce, isEmpty } from 'lodash';
 import { FIELD_CONTAINER_STYLE } from './styles';
 import mergeStyles from '../../helpers/mergeStyles';
 import validateFields from '../../helpers/validateFields';
+import { BUTTON_STYLE } from '../../packages/register-page/styles';
 
 const StyledForm = styled.form`
   display: flex;
@@ -71,14 +72,14 @@ export default ({
       return {
         ...prev,
         [current.id]: {
-          error: '',
+          errors: '',
         },
       };
     }, {}),
   );
 
   const debounceCall = useCallback(
-    debounce((value) => sendFormData(value), 500),
+    debounce((field, value) => handleChangeValue(field, value), 500),
     [],
   );
 
@@ -96,60 +97,87 @@ export default ({
         },
       };
     });
+  };
 
-    return debounceCall({
-      ...formInformation,
-      [currentField]: currentValue,
+  const handleSubmit = () => {
+    Object.entries(formInformation).forEach(([fieldName, value]) => {
+      if (!isEmpty(value)) {
+        Object.entries(errors).every(([_fieldName, errorMessage]) => {
+          if (!isEmpty(errorMessage.errors)) {
+            return null;
+          }
+
+          return sendFormData({ ...formInformation });
+        });
+      }
+
+      if (isEmpty(value)) {
+        setErrors((oldErrors) => {
+          return {
+            ...oldErrors,
+            [fieldName]: {
+              errors: 'This field cannot be empty',
+            },
+          };
+        });
+      }
     });
   };
 
   return (
-    <StyledForm styleProps={styleProps} {...otherProps}>
-      {formConfiguration.map((item, index) => {
-        const {
-          id,
-          type,
-          placeholder,
-          fieldStyleProps,
-          labelStyleProps,
-          fieldContainerStyleProps,
-          label,
-          mandatory = false,
-        } = item;
+    <>
+      <StyledForm styleProps={styleProps} {...otherProps}>
+        {formConfiguration.map((item, index) => {
+          const {
+            id,
+            type,
+            placeholder,
+            fieldStyleProps,
+            labelStyleProps,
+            fieldContainerStyleProps,
+            label,
+            mandatory = false,
+          } = item;
 
-        const fieldContainerMergedStyle = mergeStyles(
-          FIELD_CONTAINER_STYLE,
-          fieldContainerStyleProps,
-        );
+          const fieldContainerMergedStyle = mergeStyles(
+            FIELD_CONTAINER_STYLE,
+            fieldContainerStyleProps,
+          );
 
-        return (
-          <LegacyDiv styleProps={fieldContainerMergedStyle} key={index}>
-            <StyledLabel
-              mandatory={mandatory}
-              styleProps={labelStyleProps}
-              htmlFor={id}
-            >
-              {label}
-            </StyledLabel>
-            <StyledInput
-              id={id}
-              type={type}
-              required={mandatory}
-              placeholder={placeholder}
-              styleProps={fieldStyleProps}
-              autoComplete={id}
-              onChange={(e) => handleChangeValue(id, e.target.value, mandatory)}
-            />
-            {[errors].flat().map((error, index) => (
-              <Fragment key={index}>
-                {!isEmpty(error[id].errors) && (
-                  <ErrorField key={index}>{error[id].errors}</ErrorField>
-                )}
-              </Fragment>
-            ))}
-          </LegacyDiv>
-        );
-      })}
-    </StyledForm>
+          return (
+            <LegacyDiv styleProps={fieldContainerMergedStyle} key={index}>
+              <StyledLabel
+                mandatory={mandatory}
+                styleProps={labelStyleProps}
+                htmlFor={id}
+              >
+                {label}
+              </StyledLabel>
+              <StyledInput
+                id={id}
+                type={type}
+                required={mandatory}
+                placeholder={placeholder}
+                styleProps={fieldStyleProps}
+                autoComplete={id}
+                onChange={(e) => debounceCall(id, e.target.value)}
+              />
+              {[errors].flat().map((error, index) => (
+                <Fragment key={index}>
+                  {!isEmpty(error[id].errors) && (
+                    <ErrorField key={index}>{error[id].errors}</ErrorField>
+                  )}
+                </Fragment>
+              ))}
+            </LegacyDiv>
+          );
+        })}
+      </StyledForm>
+      <LegacyButton
+        styleProps={BUTTON_STYLE}
+        text="REGISTER"
+        onClick={handleSubmit}
+      />
+    </>
   );
 };

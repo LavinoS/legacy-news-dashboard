@@ -1,6 +1,6 @@
 const buttonStyle = {
   ALL_DEVICES: {
-    margin: '0 0 12px',
+    margin: '0',
     color: '#FFF',
     backgroundImage: 'linear-gradient(195deg, #EC407A 0%, #D81B60 100%)',
     borderRadius: '8px',

@@ -33,8 +33,8 @@ const validateFields = (fieldName, fieldValue) => {
       return '';
 
     default:
-      if (fieldValue.length < 6) {
-        return 'Your name must have 6 characters';
+      if (fieldValue.length < 2) {
+        return 'Your name must have 2 characters';
       }
 
       if (specialChars.test(fieldValue)) {

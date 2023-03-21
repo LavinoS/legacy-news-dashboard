@@ -1,7 +1,7 @@
 const buttonContainerStyle = {
   ALL_DEVICES: {
     flexDirection: 'column',
-    margin: '16px 0',
+    margin: '0 0 16px',
   },
 };
 

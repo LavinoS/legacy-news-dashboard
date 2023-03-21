@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DarkOverlay,
-  LegacyButton,
   LegacyDiv,
   LegacyForm,
   LegacyHeading,
@@ -10,7 +9,6 @@ import {
 } from '../../components';
 import {
   BUTTON_CONTAINER_STYLE,
-  BUTTON_STYLE,
   DEFAULT_MAIN_CONTAINER_STYLE,
   FORM_CONTAINER_STYLE,
   FORM_STYLE_PROPS,
@@ -20,13 +18,18 @@ import {
 import { registerFormBackground } from './assets';
 import { registerFormConfiguration } from './utils';
 import { headingVariants } from '../../types/headingVariants';
+import { isEmpty } from 'lodash';
 
 const RegisterPage = (props) => {
   const { injectedMethods: { registerMethod } = {} } = props;
 
-  const [registerDate, setRegisterData] = useState({});
+  const [registerData, setRegisterData] = useState({});
 
-  console.log(registerDate);
+  useEffect(() => {
+    if (!isEmpty(registerData)) {
+      registerMethod(registerData);
+    }
+  }, [registerData]);
 
   return (
     <LegacyDiv styleProps={DEFAULT_MAIN_CONTAINER_STYLE}>
@@ -65,7 +68,6 @@ const RegisterPage = (props) => {
           sendFormData={setRegisterData}
         />
         <LegacyDiv styleProps={BUTTON_CONTAINER_STYLE}>
-          <LegacyButton styleProps={BUTTON_STYLE} text="REGISTER" />
           <LegacyParagraph
             styleProps={PARAGRAPH_STYLE}
             text="Already have an account? "
