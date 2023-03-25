@@ -20,6 +20,12 @@ const buttonStyle = {
     fontSize: '16px',
     letterSpacing: '0.8px',
   },
+  TABLET: {
+    marginTop: 16,
+  },
+  MOBILE: {
+    marginTop: 16,
+  },
 };
 
 export default buttonStyle;

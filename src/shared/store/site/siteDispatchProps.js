@@ -1,9 +1,7 @@
-import { fetchUsersAction, registerAction } from '../siteActions';
+import { registerAction } from '../siteActions';
 
-export const registerMethod = (dispatch) => (payload) => {
-  dispatch(registerAction(payload));
-};
-
-export const fetchUsers = (dispatch) => () => {
-  dispatch(fetchUsersAction());
-};
+export const registerMethod =
+  (dispatch) =>
+  ({ payload, callback }) => {
+    dispatch(registerAction({ payload, callback }));
+  };

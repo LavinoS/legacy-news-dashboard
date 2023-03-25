@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { LegacyButton, LegacyDiv } from '../index';
@@ -78,6 +78,8 @@ export default ({
     }, {}),
   );
 
+  const inputRef = useRef([]);
+
   const debounceCall = useCallback(
     debounce((field, value) => handleChangeValue(field, value), 500),
     [],
@@ -101,15 +103,12 @@ export default ({
 
   const handleSubmit = () => {
     Object.entries(formInformation).forEach(([fieldName, value]) => {
-      if (!isEmpty(value)) {
-        Object.entries(errors).every(([_fieldName, errorMessage]) => {
-          if (!isEmpty(errorMessage.errors)) {
-            return null;
-          }
-
-          return sendFormData({ ...formInformation });
-        });
-      }
+      const checkingValues = Object.values(formInformation).every(
+        (value) => !isEmpty(value),
+      );
+      const checkingErrors = Object.values(errors).every(
+        (error) => !isEmpty(error),
+      );
 
       if (isEmpty(value)) {
         setErrors((oldErrors) => {
@@ -120,6 +119,19 @@ export default ({
             },
           };
         });
+      }
+
+      if (checkingValues && checkingErrors) {
+        return (
+          sendFormData({
+            payload: { ...formInformation },
+          }),
+          setFormInformation((oldValues) => ({
+            ...oldValues,
+            [fieldName]: '',
+          })),
+          inputRef.current.map((element) => (element.value = ''))
+        );
       }
     });
   };
@@ -155,6 +167,7 @@ export default ({
               </StyledLabel>
               <StyledInput
                 id={id}
+                ref={(element) => (inputRef.current[index] = element)}
                 type={type}
                 required={mandatory}
                 placeholder={placeholder}

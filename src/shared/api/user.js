@@ -3,6 +3,6 @@ export default (restClient) => ({
     return restClient.get('/users');
   },
   register: async (payload) => {
-    return restClient.post('/register', { payload: payload });
+    return restClient.post('/users', { payload: payload });
   },
 });

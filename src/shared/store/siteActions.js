@@ -1,11 +1,10 @@
 import { clientApi as api } from '../../client/clientApi';
+import showNotification from '../../components/ui/showNotification';
 
-export const fetchUsersAction = () => async () => {
-  const { json, status } = await api.user.retrieve();
-  console.log(json, status);
-};
+export const registerAction =
+  ({ payload, callback }) =>
+  async () => {
+    const { json, status } = await api.user.register(payload);
 
-export const registerAction = (payload) => async () => {
-  const { json, status } = await api.user.register(payload);
-  console.log(json, status);
-};
+    showNotification({ message: json.message });
+  };
