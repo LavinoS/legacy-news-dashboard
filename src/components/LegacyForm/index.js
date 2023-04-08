@@ -57,6 +57,8 @@ export default ({
   formConfiguration,
   styleProps,
   sendFormData,
+  buttonText,
+  formType,
   ...otherProps
 }) => {
   const [formInformation, setFormInformation] = useState(
@@ -95,7 +97,7 @@ export default ({
       return {
         ...oldErrors,
         [currentField]: {
-          errors: validateFields(currentField, currentValue),
+          errors: validateFields(currentField, currentValue, formType),
         },
       };
     });
@@ -188,7 +190,7 @@ export default ({
       </StyledForm>
       <LegacyButton
         styleProps={BUTTON_STYLE}
-        text="REGISTER"
+        text={buttonText}
         onClick={handleSubmit}
       />
     </>

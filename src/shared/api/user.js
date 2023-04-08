@@ -1,8 +1,9 @@
 export default (restClient) => ({
-  retrieve: async () => {
-    return restClient.get('/users');
-  },
   register: async (payload) => {
-    return restClient.post('/users', { payload: payload });
+    return restClient.post('/users/register', { payload: payload });
+  },
+
+  login: async (payload) => {
+    return restClient.post('/users/login', payload);
   },
 });
