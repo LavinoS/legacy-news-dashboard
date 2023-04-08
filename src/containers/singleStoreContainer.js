@@ -1,13 +1,16 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { RegisterPage } from '../packages';
+import { LoginPage, RegisterPage } from '../packages';
+import useUserToken from '../hooks/useUserToken';
 
 export default (props) => {
-  const { registerMethod } = props;
+  const { registerMethod, loginMethod } = props;
+  useUserToken(sessionStorage.getItem('token'));
 
   const singleStoreProps = {
     injectedMethods: {
       registerMethod: registerMethod,
+      loginMethod: loginMethod,
     },
   };
 
@@ -19,6 +22,19 @@ export default (props) => {
           <Route
             path="/register"
             element={<RegisterPage {...singleStoreProps} />}
+          />
+          <Route path="/login" element={<LoginPage {...singleStoreProps} />} />
+          <Route
+            path="/"
+            element={
+              <div
+                style={{
+                  width: '500px',
+                  height: '500px',
+                  background: '#ff0',
+                }}
+              />
+            }
           />
         </Routes>
       </main>

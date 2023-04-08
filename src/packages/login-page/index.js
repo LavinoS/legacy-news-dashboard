@@ -11,25 +11,34 @@ import {
   BUTTON_CONTAINER_STYLE,
   DEFAULT_MAIN_CONTAINER_STYLE,
   FORM_CONTAINER_STYLE,
-  FORM_STYLE_PROPS,
   HEADING_CONTAINER_STYLE,
   PARAGRAPH_STYLE,
-} from './styles';
-import { registerFormBackground } from './assets';
-import { registerFormConfiguration } from './utils';
+} from '../register-page/styles';
+import { registerFormBackground } from '../register-page/assets';
 import { headingVariants } from '../../types/headingVariants';
+import loginFormStyleProps from './styles/loginFormStyleProps';
+import loginFormConfiguration from './utils/loginFormConfiguration';
+import mergeStyles from '../../helpers/mergeStyles';
 import { isEmpty } from 'lodash';
+import { useNavigate } from 'react-router-dom';
 
-const RegisterPage = (props) => {
-  const { injectedMethods: { registerMethod } = {} } = props;
+const LoginPage = (props) => {
+  const { injectedMethods: { loginMethod } = {} } = props;
+  const redirect = useNavigate();
 
-  const [registerData, setRegisterData] = useState({});
+  const [loginData, setLoginData] = useState({});
 
   useEffect(() => {
-    if (!isEmpty(registerData)) {
-      registerMethod(registerData);
+    if (!isEmpty(loginData)) {
+      loginMethod({
+        payload: { ...loginData },
+        callback: (result) => {
+          sessionStorage.setItem('token', result.token);
+          redirect('/');
+        },
+      });
     }
-  }, [registerData]);
+  }, [loginData]);
 
   return (
     <LegacyDiv styleProps={DEFAULT_MAIN_CONTAINER_STYLE}>
@@ -46,11 +55,15 @@ const RegisterPage = (props) => {
         alt="rocks"
         src={registerFormBackground.path}
       />
-      <LegacyDiv styleProps={FORM_CONTAINER_STYLE}>
+      <LegacyDiv
+        styleProps={mergeStyles(FORM_CONTAINER_STYLE, {
+          ALL_DEVICES: { height: 'fit-content' },
+        })}
+      >
         <LegacyDiv styleProps={HEADING_CONTAINER_STYLE}>
           <LegacyHeading
             variant={headingVariants.H1}
-            text="Registration Form"
+            text="Login Form"
             styleProps={{
               ALL_DEVICES: {
                 fontSize: '24px',
@@ -63,26 +76,26 @@ const RegisterPage = (props) => {
           />
         </LegacyDiv>
         <LegacyForm
-          styleProps={FORM_STYLE_PROPS}
-          formConfiguration={registerFormConfiguration}
-          sendFormData={setRegisterData}
-          buttonText="REGISTER"
-          formType="register"
+          styleProps={loginFormStyleProps}
+          formConfiguration={loginFormConfiguration}
+          sendFormData={setLoginData}
+          buttonText="SIGN IN"
+          formType="login"
         />
         <LegacyDiv styleProps={BUTTON_CONTAINER_STYLE}>
           <LegacyParagraph
             styleProps={PARAGRAPH_STYLE}
-            text="Already have an account? "
+            text="Don't have an account? "
           >
             <LegacyLink
-              text="Sign in"
+              text="Sign up"
               styleProps={{
                 ALL_DEVICES: {
                   color: '#e91e63',
                   fontWeight: '600',
                 },
               }}
-              redirectPath="/login"
+              redirectPath="/register"
             />
           </LegacyParagraph>
         </LegacyDiv>
@@ -91,4 +104,4 @@ const RegisterPage = (props) => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
