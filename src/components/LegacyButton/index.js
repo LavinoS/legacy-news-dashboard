@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { LegacyParagraph } from '../index';
+import { LegacyDiv, LegacyLink, LegacyParagraph } from '../index';
 
 const StyledButton = styled.button`
   width: 100%;
@@ -11,8 +11,23 @@ const StyledButton = styled.button`
   color: #fff;
   cursor: pointer;
   text-align: center;
+  position: relative;
 
   ${(props) => props.theme.toRawCss(props.styleProps)}
+`;
+
+const StyledUnorderedList = styled.ul`
+  list-style: none;
+  display: flex;
+  padding: 12px 0;
+`;
+
+const StyledDots = styled.li`
+  background: #7b809a;
+  width: 5px;
+  height: 5px;
+  margin: 0 3px;
+  border-radius: 50%;
 `;
 
 export default ({
@@ -23,8 +38,34 @@ export default ({
   paragraphClass,
   text,
   paragraphStyle,
+  dropdownConfig: {
+    isDropdownButton = false,
+    optionsConfig = [],
+    activeMenuStyle = {},
+  } = {},
   ...otherProps
 }) => {
+  const [activeMenu, setActiveMenu] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setActiveMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuRef]);
+
+  const handleOpenMenu = () => {
+    setActiveMenu((prevState) => !prevState);
+  };
+
   return (
     <StyledButton
       className={className}
@@ -33,11 +74,34 @@ export default ({
       aria-label={ariaLabel}
       {...otherProps}
     >
-      <LegacyParagraph
-        className={paragraphClass}
-        styleProps={paragraphStyle}
-        text={text}
-      />
+      {!isDropdownButton ? (
+        <LegacyParagraph
+          className={paragraphClass}
+          styleProps={paragraphStyle}
+          text={text}
+        />
+      ) : (
+        <>
+          <StyledUnorderedList onClick={handleOpenMenu}>
+            <StyledDots />
+            <StyledDots />
+            <StyledDots />
+          </StyledUnorderedList>
+          {activeMenu && (
+            <LegacyDiv ref={menuRef} styleProps={activeMenuStyle}>
+              {optionsConfig.map(({ styleProps, onClick, text }, index) => (
+                <Fragment key={index}>
+                  <LegacyLink
+                    text={text}
+                    onClick={onClick && handleOpenMenu}
+                    styleProps={styleProps}
+                  />
+                </Fragment>
+              ))}
+            </LegacyDiv>
+          )}
+        </>
+      )}
     </StyledButton>
   );
 };

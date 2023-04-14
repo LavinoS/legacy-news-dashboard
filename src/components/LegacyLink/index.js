@@ -14,6 +14,7 @@ export default ({
   linkTarget = '_self',
   text,
   redirectPath,
+  onClick,
   ...otherProps
 }) => {
   return (
@@ -22,6 +23,7 @@ export default ({
       styleProps={styleProps}
       target={linkTarget}
       href={redirectPath}
+      onClick={onClick}
       {...otherProps}
     >
       {text}

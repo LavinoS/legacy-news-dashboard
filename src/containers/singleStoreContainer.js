@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { LoginPage, RegisterPage } from '../packages';
+import { LoginPage, RegisterPage, Dashboard } from '../packages';
 import useUserToken from '../hooks/useUserToken';
 
 export default (props) => {
@@ -15,7 +15,7 @@ export default (props) => {
   };
 
   return (
-    <>
+    <Suspense fallback={<></>}>
       <header></header>
       <main>
         <Routes>
@@ -24,21 +24,10 @@ export default (props) => {
             element={<RegisterPage {...singleStoreProps} />}
           />
           <Route path="/login" element={<LoginPage {...singleStoreProps} />} />
-          <Route
-            path="/"
-            element={
-              <div
-                style={{
-                  width: '500px',
-                  height: '500px',
-                  background: '#ff0',
-                }}
-              />
-            }
-          />
+          <Route path="/" element={<Dashboard {...singleStoreProps} />} />
         </Routes>
       </main>
       <footer></footer>
-    </>
+    </Suspense>
   );
 };

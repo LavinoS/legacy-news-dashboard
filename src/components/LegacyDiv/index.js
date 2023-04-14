@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
@@ -13,15 +13,18 @@ const StyledDiv = styled.div`
   ${(props) => props.theme.toRawCss(props.styleProps || {})};
 `;
 
-export default ({ className, styleProps, style, children, ...otherProps }) => {
-  return (
-    <StyledDiv
-      styleProps={styleProps}
-      className={className}
-      style={style}
-      {...otherProps}
-    >
-      {children}
-    </StyledDiv>
-  );
-};
+export default forwardRef(
+  ({ className, styleProps, style, children, ...otherProps }, ref) => {
+    return (
+      <StyledDiv
+        ref={ref}
+        styleProps={styleProps}
+        className={className}
+        style={style}
+        {...otherProps}
+      >
+        {children}
+      </StyledDiv>
+    );
+  },
+);
