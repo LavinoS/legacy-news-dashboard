@@ -33,16 +33,12 @@ export default ({ baseUrl, ...extraConfigs }) => {
 
   return {
     baseUrl,
-    get: async function (
-      url,
-      { params = {}, config = {}, cacheable = false } = {},
-    ) {
+    get: async function (url, { params = {}, config = {} } = {}) {
       return makeRequest({
         url,
         method: 'get',
         params,
         config,
-        cacheable,
       });
     },
 
@@ -55,6 +51,24 @@ export default ({ baseUrl, ...extraConfigs }) => {
         method: 'post',
         payload,
         params,
+        config,
+      });
+    },
+
+    delete: async function (url, { config = {}, payload = {} } = {}) {
+      return makeRequest({
+        url,
+        method: 'delete',
+        payload,
+        config,
+      });
+    },
+
+    put: async function (url, { config = {}, payload = {} } = {}) {
+      return makeRequest({
+        url,
+        method: 'put',
+        payload,
         config,
       });
     },

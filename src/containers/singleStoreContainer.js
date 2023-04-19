@@ -4,13 +4,24 @@ import { LoginPage, RegisterPage, Dashboard } from '../packages';
 import useUserToken from '../hooks/useUserToken';
 
 export default (props) => {
-  const { registerMethod, loginMethod } = props;
+  const {
+    registerMethod,
+    loginMethod,
+    receiveArticlesMethod,
+    deleteArticleMethod,
+    updateArticleStatusMethod,
+    receiveArticleMethod,
+  } = props;
   useUserToken(sessionStorage.getItem('token'));
 
   const singleStoreProps = {
     injectedMethods: {
-      registerMethod: registerMethod,
-      loginMethod: loginMethod,
+      registerMethod,
+      loginMethod,
+      receiveArticlesMethod,
+      deleteArticleMethod,
+      updateArticleStatusMethod,
+      receiveArticleMethod,
     },
   };
 

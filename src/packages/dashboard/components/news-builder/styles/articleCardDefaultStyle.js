@@ -1,8 +1,8 @@
 export default {
   ALL_DEVICES: {
     backgroundColor: '#FFF',
-    width: 'calc(100% - 300px)',
-    height: '500px',
+    width: 'calc(100% - 324px)',
+    height: 'auto',
     borderRadius: '12px',
     border: '1px solid rgba(0, 0, 0, 0.125)',
     boxShadow:

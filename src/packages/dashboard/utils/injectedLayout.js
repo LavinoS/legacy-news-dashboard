@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   NewsBuilderContainer,
   OverviewContainer,
@@ -8,16 +10,16 @@ export default [
   {
     layoutName: 'dashboard',
     icon: '',
-    injectedComponent: OverviewContainer,
+    injectedComponent: (props) => <OverviewContainer {...props} />,
   },
   {
     layoutName: 'tables',
     icon: '',
-    injectedComponent: TableContainer,
+    injectedComponent: (props) => <TableContainer {...props} />,
   },
   {
     layoutName: 'News Builder',
     icon: '',
-    injectedComponent: NewsBuilderContainer,
+    injectedComponent: (props) => <NewsBuilderContainer {...props} />,
   },
 ];

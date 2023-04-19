@@ -14,18 +14,28 @@ import menuStyleProps from './styles/menuStyleProps';
 import { OverviewContainer } from './components';
 import { useNavigate } from 'react-router-dom';
 import { BUTTON_STYLE } from '../register-page/styles';
+import defaultMenuButtonsStyleProps from './styles/defaultMenuButtonsStyleProps';
+import mergeStyles from '../../helpers/mergeStyles';
+import activeMenuButtonStyle from './styles/activeMenuButtonStyle';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const [injectedContainer, setInjectedContainer] = useState(OverviewContainer);
+  const [selectedButton, setSelectedButton] = useState(0);
   const navigator = useNavigate();
 
-  const handleChangeContainer = (component) => {
+  const handleChangeContainer = (component, index) => {
+    setSelectedButton(index);
     setInjectedContainer(component);
   };
   const handleLogout = () => {
     sessionStorage.removeItem('token');
     navigator('/login');
   };
+
+  const mergedButtonStyle = mergeStyles(
+    defaultMenuButtonsStyleProps,
+    activeMenuButtonStyle,
+  );
 
   return (
     <LegacyDiv styleProps={mainContainerStyleProps}>
@@ -49,7 +59,17 @@ const Dashboard = () => {
                   <LegacyButton
                     key={index}
                     text={capitalize(layoutName)}
-                    onClick={() => handleChangeContainer(injectedComponent)}
+                    styleProps={
+                      index !== selectedButton
+                        ? defaultMenuButtonsStyleProps
+                        : mergedButtonStyle
+                    }
+                    onClick={() =>
+                      handleChangeContainer(
+                        injectedComponent({ ...props, setInjectedContainer }),
+                        index,
+                      )
+                    }
                   />
                 );
               },

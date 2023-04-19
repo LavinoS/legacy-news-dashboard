@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 import { LegacyDiv, LegacyLink, LegacyParagraph } from '../index';
 
@@ -30,78 +36,88 @@ const StyledDots = styled.li`
   border-radius: 50%;
 `;
 
-export default ({
-  className,
-  styleProps,
-  onClick,
-  ariaLabel,
-  paragraphClass,
-  text,
-  paragraphStyle,
-  dropdownConfig: {
-    isDropdownButton = false,
-    optionsConfig = [],
-    activeMenuStyle = {},
-  } = {},
-  ...otherProps
-}) => {
-  const [activeMenu, setActiveMenu] = useState(false);
-  const menuRef = useRef(null);
+export default forwardRef(
+  (
+    {
+      className,
+      styleProps,
+      onClick,
+      ariaLabel,
+      paragraphClass,
+      text,
+      paragraphStyle,
+      dropdownConfig: {
+        isDropdownButton = false,
+        optionsConfig = [],
+        activeMenuStyle = {},
+      } = {},
+      ...otherProps
+    },
+    ref,
+  ) => {
+    const [activeMenu, setActiveMenu] = useState(false);
+    const menuRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setActiveMenu(false);
-      }
+    useEffect(() => {
+      const handleClickOutside = (e) => {
+        if (menuRef.current && !menuRef.current.contains(e.target)) {
+          setActiveMenu(false);
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [menuRef]);
+
+    const handleOpenMenu = () => {
+      setActiveMenu((prevState) => !prevState);
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [menuRef]);
-
-  const handleOpenMenu = () => {
-    setActiveMenu((prevState) => !prevState);
-  };
-
-  return (
-    <StyledButton
-      className={className}
-      styleProps={styleProps}
-      onClick={onClick}
-      aria-label={ariaLabel}
-      {...otherProps}
-    >
-      {!isDropdownButton ? (
-        <LegacyParagraph
-          className={paragraphClass}
-          styleProps={paragraphStyle}
-          text={text}
-        />
-      ) : (
-        <>
-          <StyledUnorderedList onClick={handleOpenMenu}>
-            <StyledDots />
-            <StyledDots />
-            <StyledDots />
-          </StyledUnorderedList>
-          {activeMenu && (
-            <LegacyDiv ref={menuRef} styleProps={activeMenuStyle}>
-              {optionsConfig.map(({ styleProps, onClick, text }, index) => (
-                <Fragment key={index}>
-                  <LegacyLink
-                    text={text}
-                    onClick={onClick && handleOpenMenu}
-                    styleProps={styleProps}
-                  />
-                </Fragment>
-              ))}
-            </LegacyDiv>
-          )}
-        </>
-      )}
-    </StyledButton>
-  );
-};
+    return (
+      <StyledButton
+        className={className}
+        ref={ref}
+        styleProps={styleProps}
+        onClick={onClick}
+        aria-label={ariaLabel}
+        {...otherProps}
+      >
+        {!isDropdownButton ? (
+          <LegacyParagraph
+            className={paragraphClass}
+            styleProps={paragraphStyle}
+            text={text}
+          />
+        ) : (
+          <>
+            <StyledUnorderedList onClick={handleOpenMenu}>
+              <StyledDots />
+              <StyledDots />
+              <StyledDots />
+            </StyledUnorderedList>
+            {activeMenu && (
+              <LegacyDiv
+                ref={menuRef}
+                styleProps={activeMenuStyle}
+                onClick={handleOpenMenu}
+              >
+                {optionsConfig.map(({ styleProps, onClick, text }, index) => (
+                  <Fragment key={index}>
+                    <LegacyLink
+                      text={text}
+                      onClick={onClick}
+                      styleProps={styleProps}
+                    />
+                  </Fragment>
+                ))}
+              </LegacyDiv>
+            )}
+          </>
+        )}
+      </StyledButton>
+    );
+  },
+);
