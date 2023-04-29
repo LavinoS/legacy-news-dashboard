@@ -11,6 +11,7 @@ export default (props) => {
     deleteArticleMethod,
     updateArticleStatusMethod,
     receiveArticleMethod,
+    createArticleMethod,
   } = props;
   useUserToken(sessionStorage.getItem('token'));
 
@@ -22,6 +23,7 @@ export default (props) => {
       deleteArticleMethod,
       updateArticleStatusMethod,
       receiveArticleMethod,
+      createArticleMethod,
     },
   };
 

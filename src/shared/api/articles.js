@@ -14,4 +14,15 @@ export default (restClient) => ({
   receiveArticle: async (payload) => {
     return restClient.get('/articles', { params: payload });
   },
+
+  createArticle: async (payload) => {
+    return restClient.post('/articles/create', {
+      payload: payload,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    });
+  },
 });

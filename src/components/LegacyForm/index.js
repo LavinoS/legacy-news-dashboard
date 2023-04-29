@@ -7,6 +7,7 @@ import { FIELD_CONTAINER_STYLE } from './styles';
 import mergeStyles from '../../helpers/mergeStyles';
 import validateFields from '../../helpers/validateFields';
 import { BUTTON_STYLE } from '../../packages/register-page/styles';
+import FormComponent from './components/FormComponent';
 
 const StyledForm = styled.form`
   display: flex;
@@ -36,11 +37,6 @@ const StyledLabel = styled.label`
   ${(props) => props.theme.toRawCss(props.styleProps)}
 `;
 
-const StyledInput = styled.input`
-  width: 100%;
-  ${(props) => props.theme.toRawCss(props.styleProps)}
-`;
-
 const ErrorField = styled.span`
   color: #e91e63;
   font-size: 12px;
@@ -59,6 +55,7 @@ export default ({
   sendFormData,
   buttonText,
   formType,
+  submitButtonStyle = {},
   ...otherProps
 }) => {
   const [formInformation, setFormInformation] = useState(
@@ -83,7 +80,7 @@ export default ({
   const inputRef = useRef([]);
 
   const debounceCall = useCallback(
-    debounce((field, value) => handleChangeValue(field, value), 500),
+    debounce((field, value) => handleChangeValue(field, value), 200),
     [],
   );
 
@@ -105,15 +102,12 @@ export default ({
 
   const handleSubmit = () => {
     Object.entries(formInformation).forEach(([fieldName, value]) => {
-      const checkingValues = Object.values(formInformation).every(
-        (value) => !isEmpty(value),
-      );
       const checkingErrors = Object.values(errors).every(
-        (error) => !isEmpty(error),
+        (error) => !error.errors,
       );
 
-      if (isEmpty(value)) {
-        setErrors((oldErrors) => {
+      if (!value) {
+        return setErrors((oldErrors) => {
           return {
             ...oldErrors,
             [fieldName]: {
@@ -123,7 +117,7 @@ export default ({
         });
       }
 
-      if (checkingValues && checkingErrors) {
+      if (checkingErrors) {
         return (
           sendFormData({
             payload: { ...formInformation },
@@ -138,6 +132,8 @@ export default ({
     });
   };
 
+  const mergedSubmitButtonStyle = mergeStyles(BUTTON_STYLE, submitButtonStyle);
+
   return (
     <>
       <StyledForm styleProps={styleProps} {...otherProps}>
@@ -150,6 +146,9 @@ export default ({
             labelStyleProps,
             fieldContainerStyleProps,
             label,
+            accept,
+            options = [],
+            hidden = false,
             mandatory = false,
           } = item;
 
@@ -167,17 +166,21 @@ export default ({
               >
                 {label}
               </StyledLabel>
-              <StyledInput
+              <FormComponent
                 id={id}
+                hidden={hidden}
                 ref={(element) => (inputRef.current[index] = element)}
+                options={options}
                 type={type}
                 required={mandatory}
                 placeholder={placeholder}
-                styleProps={fieldStyleProps}
+                fieldStyleProps={fieldStyleProps}
                 autoComplete={id}
-                onChange={(e) => debounceCall(id, e.target.value)}
+                accept={accept}
+                onChange={(value) => debounceCall(id, value)}
+                onClick={(value) => debounceCall(id, value)}
               />
-              {[errors].flat().map((error, index) => (
+              {[errors].map((error, index) => (
                 <Fragment key={index}>
                   {!isEmpty(error[id].errors) && (
                     <ErrorField key={index}>{error[id].errors}</ErrorField>
@@ -189,7 +192,7 @@ export default ({
         })}
       </StyledForm>
       <LegacyButton
-        styleProps={BUTTON_STYLE}
+        styleProps={mergedSubmitButtonStyle}
         text={buttonText}
         onClick={handleSubmit}
       />

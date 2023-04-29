@@ -37,6 +37,12 @@ const Dashboard = (props) => {
     activeMenuButtonStyle,
   );
 
+  const checkingForStyle = (index) => {
+    return index !== selectedButton
+      ? defaultMenuButtonsStyleProps
+      : mergedButtonStyle;
+  };
+
   return (
     <LegacyDiv styleProps={mainContainerStyleProps}>
       <LegacyDiv styleProps={sidebarMenuStyleProps}>
@@ -59,11 +65,7 @@ const Dashboard = (props) => {
                   <LegacyButton
                     key={index}
                     text={capitalize(layoutName)}
-                    styleProps={
-                      index !== selectedButton
-                        ? defaultMenuButtonsStyleProps
-                        : mergedButtonStyle
-                    }
+                    styleProps={checkingForStyle(index)}
                     onClick={() =>
                       handleChangeContainer(
                         injectedComponent({ ...props, setInjectedContainer }),

@@ -50,11 +50,25 @@ export const updateArticleStatusAction =
       callback(json);
     }
   };
-
 export const receiveArticleAction =
   ({ payload, callback }) =>
   async () => {
     const { status, json } = await api.articles.receiveArticle(payload);
+
+    if (callback && typeof callback === 'function' && status === 200) {
+      callback(json);
+    }
+  };
+export const createArticleAction =
+  ({ payload, callback }) =>
+  async () => {
+    const formData = new FormData();
+
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const { status, json } = await api.articles.createArticle(formData);
 
     if (callback && typeof callback === 'function' && status === 200) {
       callback(json);

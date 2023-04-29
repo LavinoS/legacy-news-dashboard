@@ -14,15 +14,17 @@ import additionalTitleStyleProps from './styles/additionalTitleStyleProps';
 import DropdownButton from './DropdownButton';
 import ArticleEditor from './ArticleEditor';
 
-export default ({
-  methods: {
-    deleteArticleMethod,
-    receiveArticlesMethod,
-    updateArticleStatusMethod,
-    receiveArticleMethod,
-  } = {},
-  setInjectedContainer,
-}) => {
+export default (props) => {
+  const {
+    methods: {
+      deleteArticleMethod,
+      receiveArticlesMethod,
+      updateArticleStatusMethod,
+      receiveArticleMethod,
+      createArticleMethod,
+    } = {},
+    setInjectedContainer,
+  } = props;
   const [fetchedArticles, setFetchedArticles] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
@@ -110,6 +112,7 @@ export default ({
                   deleteArticleMethod,
                   updateArticleStatusMethod,
                   receiveArticleMethod,
+                  createArticleMethod,
                 }}
                 methodsParams={{ _id, status }}
                 setInjectedContainer={setInjectedContainer}
@@ -138,7 +141,15 @@ export default ({
             },
           },
         }}
-        onClick={() => setInjectedContainer(<ArticleEditor />)}
+        onClick={() =>
+          setInjectedContainer(
+            <ArticleEditor
+              injectedMethod={createArticleMethod}
+              setInjectedContainer={setInjectedContainer}
+              {...props}
+            />,
+          )
+        }
         text="CREATE NEW POST"
       />
     </LegacyDiv>

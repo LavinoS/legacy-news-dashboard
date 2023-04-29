@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const StyledParagraph = styled.p`
   text-align: center;
-  pointer-events: none;
 
   ${(props) => props.theme.toRawCss(props.styleProps)}
 `;

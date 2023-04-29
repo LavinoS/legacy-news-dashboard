@@ -16,13 +16,14 @@ export default (props) => {
       deleteArticleMethod,
       updateArticleStatusMethod,
       receiveArticleMethod,
+      createArticleMethod,
     } = {},
     setInjectedContainer,
   } = props;
 
   return (
     <LegacyDiv styleProps={articleCardDefaultStyle}>
-      <LegacyDiv styleProps={headingContainerStyleProps}>
+      <LegacyDiv styleProps={headingContainerStyleProps()}>
         <LegacyHeading text="Posts Table" variant={headingVariants.H2} />
       </LegacyDiv>
       <LegacyDiv
@@ -35,6 +36,7 @@ export default (props) => {
             receiveArticlesMethod,
             updateArticleStatusMethod,
             receiveArticleMethod,
+            createArticleMethod,
           }}
           setInjectedContainer={setInjectedContainer}
         />
