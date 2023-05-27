@@ -72,7 +72,9 @@ const Dashboard = (props) => {
                         index,
                       )
                     }
-                  />
+                  >
+                    {icon({ size: '20px', style: { marginRight: '5px' } })}
+                  </LegacyButton>
                 );
               },
             )}

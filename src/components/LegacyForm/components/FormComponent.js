@@ -26,6 +26,8 @@ export default forwardRef((props, ref) => {
     options,
     onClick,
     hidden,
+    value,
+    optionStyleProps,
   } = props;
 
   switch (type) {
@@ -36,12 +38,18 @@ export default forwardRef((props, ref) => {
           selectStyleProps={fieldStyleProps}
           optionsConfig={options}
           placeholder={placeholder}
+          optionStyleProps={optionStyleProps}
+          value={value}
         />
       );
 
     case inputTypes.FILE:
       return (
-        <ImageUploader hidden={hidden} onChange={(value) => onChange(value)} />
+        <ImageUploader
+          value={value}
+          hidden={hidden}
+          onChange={(value) => onChange(value)}
+        />
       );
 
     case inputTypes.TEXT_AREA:
@@ -52,6 +60,7 @@ export default forwardRef((props, ref) => {
           required={mandatory}
           placeholder={placeholder}
           styleProps={fieldStyleProps}
+          value={value}
           onChange={(e) => onChange(e.target.value)}
         />
       );
@@ -67,6 +76,7 @@ export default forwardRef((props, ref) => {
           styleProps={fieldStyleProps}
           autoComplete={id}
           accept={accept}
+          value={value}
           onChange={(e) => onChange(e.target.value)}
         />
       );

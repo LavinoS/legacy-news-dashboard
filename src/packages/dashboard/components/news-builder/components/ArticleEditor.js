@@ -16,14 +16,22 @@ export default (props) => {
     containerText = 'Create new article',
     injectedMethod,
     setInjectedContainer,
-    methods,
+    injectedMethods,
+    receivedForm = {},
+    buttonText = 'CREATE',
+    injectedComponent,
   } = props;
   const [articleData, setArticleData] = useState({});
 
   useEffect(() => {
     if (!isEmpty(articleData)) {
       injectedMethod(articleData);
-      setInjectedContainer(<NewsBuilderContainer injectedMethods={methods} />);
+      setInjectedContainer(
+        <NewsBuilderContainer
+          injectedMethods={injectedMethods}
+          setInjectedContainer={setInjectedContainer}
+        />,
+      );
     }
   }, [articleData]);
 
@@ -63,7 +71,14 @@ export default (props) => {
             },
           },
         }}
-        buttonText="CREATE"
+        receivedForm={receivedForm}
+        buttonText={buttonText}
+        injectedComponent={injectedComponent}
+        buttonContainerStyleProps={{
+          ALL_DEVICES: {
+            justifyContent: 'end',
+          },
+        }}
       />
     </LegacyDiv>
   );

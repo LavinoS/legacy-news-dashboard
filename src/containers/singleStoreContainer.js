@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { LoginPage, RegisterPage, Dashboard } from '../packages';
+import { LoginPage, RegisterPage, Dashboard, EditDesign } from '../packages';
 import useUserToken from '../hooks/useUserToken';
 
 export default (props) => {
@@ -12,6 +12,7 @@ export default (props) => {
     updateArticleStatusMethod,
     receiveArticleMethod,
     createArticleMethod,
+    updateArticleMethod,
   } = props;
   useUserToken(sessionStorage.getItem('token'));
 
@@ -24,6 +25,7 @@ export default (props) => {
       updateArticleStatusMethod,
       receiveArticleMethod,
       createArticleMethod,
+      updateArticleMethod,
     },
   };
 
@@ -38,6 +40,10 @@ export default (props) => {
           />
           <Route path="/login" element={<LoginPage {...singleStoreProps} />} />
           <Route path="/" element={<Dashboard {...singleStoreProps} />} />
+          <Route
+            path="/edit-design/:id"
+            element={<EditDesign {...singleStoreProps} />}
+          />
         </Routes>
       </main>
       <footer></footer>

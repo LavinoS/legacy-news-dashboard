@@ -1,8 +1,8 @@
-import React, { Fragment, useCallback, useRef, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { LegacyButton, LegacyDiv } from '../index';
-import { debounce, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { FIELD_CONTAINER_STYLE } from './styles';
 import mergeStyles from '../../helpers/mergeStyles';
 import validateFields from '../../helpers/validateFields';
@@ -56,13 +56,17 @@ export default ({
   buttonText,
   formType,
   submitButtonStyle = {},
+  receivedForm,
+  injectedComponent,
+  buttonContainerStyleProps = {},
   ...otherProps
 }) => {
   const [formInformation, setFormInformation] = useState(
     formConfiguration.reduce((previousValue, currentValue) => {
       return {
         ...previousValue,
-        [currentValue.id]: '',
+        [currentValue.id]: receivedForm ? receivedForm[currentValue.id] : '',
+        ...(receivedForm?.id && { id: receivedForm.id }),
       };
     }, {}),
   );
@@ -78,11 +82,6 @@ export default ({
   );
 
   const inputRef = useRef([]);
-
-  const debounceCall = useCallback(
-    debounce((field, value) => handleChangeValue(field, value), 200),
-    [],
-  );
 
   const handleChangeValue = (currentField, currentValue) => {
     setFormInformation((oldInformation) => ({
@@ -177,8 +176,9 @@ export default ({
                 fieldStyleProps={fieldStyleProps}
                 autoComplete={id}
                 accept={accept}
-                onChange={(value) => debounceCall(id, value)}
-                onClick={(value) => debounceCall(id, value)}
+                value={formInformation[id]}
+                onChange={(value) => handleChangeValue(id, value)}
+                onClick={(value) => handleChangeValue(id, value)}
               />
               {[errors].map((error, index) => (
                 <Fragment key={index}>
@@ -191,11 +191,14 @@ export default ({
           );
         })}
       </StyledForm>
-      <LegacyButton
-        styleProps={mergedSubmitButtonStyle}
-        text={buttonText}
-        onClick={handleSubmit}
-      />
+      <LegacyDiv styleProps={buttonContainerStyleProps}>
+        {injectedComponent && injectedComponent}
+        <LegacyButton
+          styleProps={mergedSubmitButtonStyle}
+          text={buttonText}
+          onClick={handleSubmit}
+        />
+      </LegacyDiv>
     </>
   );
 };

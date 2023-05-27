@@ -1,6 +1,6 @@
 export default (restClient) => ({
-  receive: async () => {
-    return restClient.get('/articles/receiveArticles');
+  receive: async (params) => {
+    return restClient.get('/articles/receiveArticles', { params: params });
   },
 
   delete: async (payload) => {
@@ -17,6 +17,17 @@ export default (restClient) => ({
 
   createArticle: async (payload) => {
     return restClient.post('/articles/create', {
+      payload: payload,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    });
+  },
+
+  updateArticle: async (payload) => {
+    return restClient.put('/articles/edit', {
       payload: payload,
       config: {
         headers: {

@@ -22,9 +22,9 @@ export const loginAction =
   };
 
 export const receiveArticlesAction =
-  ({ callback }) =>
+  ({ params, callback }) =>
   async () => {
-    const { json, status } = await api.articles.receive();
+    const { json, status } = await api.articles.receive(params);
 
     if (callback && typeof callback === 'function' && status === 200) {
       callback(json);
@@ -50,15 +50,17 @@ export const updateArticleStatusAction =
       callback(json);
     }
   };
+
 export const receiveArticleAction =
   ({ payload, callback }) =>
   async () => {
-    const { status, json } = await api.articles.receiveArticle(payload);
+    const { json } = await api.articles.receiveArticle(payload);
 
-    if (callback && typeof callback === 'function' && status === 200) {
+    if (callback && typeof callback === 'function') {
       callback(json);
     }
   };
+
 export const createArticleAction =
   ({ payload, callback }) =>
   async () => {
@@ -69,6 +71,22 @@ export const createArticleAction =
     });
 
     const { status, json } = await api.articles.createArticle(formData);
+
+    if (callback && typeof callback === 'function' && status === 200) {
+      callback(json);
+    }
+  };
+
+export const updateArticleAction =
+  ({ payload, callback }) =>
+  async () => {
+    const formData = new FormData();
+
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const { status, json } = await api.articles.updateArticle(formData);
 
     if (callback && typeof callback === 'function' && status === 200) {
       callback(json);

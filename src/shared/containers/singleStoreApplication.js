@@ -7,6 +7,7 @@ import {
   updateArticleStatusMethod,
   receiveArticleMethod,
   createArticleMethod,
+  updateArticleMethod,
 } from '../store/site/siteDispatchProps';
 import dispatchPropsBuilder from '../helpers/dispatchPropsBuilder';
 import singleStoreContainer from '../../containers/singleStoreContainer';
@@ -24,6 +25,7 @@ const mapDispatchToProps = dispatchPropsBuilder({
   updateArticleStatusMethod,
   receiveArticleMethod,
   createArticleMethod,
+  updateArticleMethod,
 });
 
 export default connect(

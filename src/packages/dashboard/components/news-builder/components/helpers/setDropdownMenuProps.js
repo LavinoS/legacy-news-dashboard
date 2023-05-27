@@ -1,10 +1,10 @@
 import dropdownLinksStyleProps from '../styles/dropdownLinksStyleProps';
 
-export default ({ deleteAction, editAction, changeArticleStatus, status }) => {
+export default ({ deleteAction, receiveById, changeArticleStatus, status }) => {
   return [
     {
       styleProps: dropdownLinksStyleProps,
-      onClick: editAction,
+      onClick: receiveById,
       text: 'Edit article',
     },
     {

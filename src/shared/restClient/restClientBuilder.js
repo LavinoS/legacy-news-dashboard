@@ -64,7 +64,7 @@ export default ({ baseUrl, ...extraConfigs }) => {
       });
     },
 
-    put: async function (url, { config = {}, payload = {} } = {}) {
+    put: async function (url, { payload = {}, config = {} } = {}) {
       return makeRequest({
         url,
         method: 'put',

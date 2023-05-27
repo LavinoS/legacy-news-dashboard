@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { LegacyParagraph } from '../index';
 
@@ -65,18 +65,12 @@ export default (props) => {
     onClick,
     optionContainerStyleProps,
     optionsConfig,
-    resetField,
+    optionStyleProps,
+    value,
   } = props;
 
   const [openSelect, setOpenSelect] = useState(false);
-  //TODO: improve logic when receive values from database
-  const [selectedText, setSelectedText] = useState(placeholder);
-
-  useEffect(() => {
-    if (resetField) {
-      setSelectedText(placeholder);
-    }
-  }, [resetField]);
+  const [selectedText, setSelectedText] = useState(value || placeholder);
 
   const handleOpenSelect = () => setOpenSelect((prevState) => !prevState);
 
@@ -87,10 +81,13 @@ export default (props) => {
 
   return (
     <StyledSelect styleProps={selectStyleProps} onClick={handleOpenSelect}>
-      <LegacyParagraph text={selectedText} />
+      <LegacyParagraph
+        styleProps={{ ALL_DEVICES: { textTransform: 'capitalize' } }}
+        text={selectedText}
+      />
       {openSelect && (
         <StyledOptionContainer styleProps={optionContainerStyleProps}>
-          {optionsConfig.map(({ label, value, optionStyleProps }, index) => (
+          {optionsConfig.map(({ label, value }, index) => (
             <StyledOption
               key={index}
               styleProps={optionStyleProps}

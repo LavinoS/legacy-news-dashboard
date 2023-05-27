@@ -11,8 +11,14 @@ export default {
     width: '100%',
     padding: 16,
     transition: 'all 0.15s ease-in',
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
     '&:hover': {
       background: '#c7c7c733',
+    },
+    '& > p': {
+      lineHeight: 'normal',
     },
   },
 };

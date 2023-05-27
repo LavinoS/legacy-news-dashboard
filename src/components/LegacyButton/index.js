@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 import styled from 'styled-components';
+
 import { LegacyDiv, LegacyLink, LegacyParagraph } from '../index';
 
 const StyledButton = styled.button`
@@ -51,6 +52,7 @@ export default forwardRef(
         optionsConfig = [],
         activeMenuStyle = {},
       } = {},
+      children,
       ...otherProps
     },
     ref,
@@ -85,6 +87,7 @@ export default forwardRef(
         aria-label={ariaLabel}
         {...otherProps}
       >
+        {children}
         {!isDropdownButton ? (
           <LegacyParagraph
             className={paragraphClass}

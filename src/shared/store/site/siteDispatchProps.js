@@ -6,6 +6,7 @@ import {
   updateArticleStatusAction,
   receiveArticleAction,
   createArticleAction,
+  updateArticleAction,
 } from '../siteActions';
 
 export const registerMethod =
@@ -22,8 +23,8 @@ export const loginMethod =
 
 export const receiveArticlesMethod =
   (dispatch) =>
-  ({ callback }) => {
-    dispatch(receiveArticlesAction({ callback }));
+  ({ params, callback }) => {
+    dispatch(receiveArticlesAction({ params, callback }));
   };
 
 export const deleteArticleMethod =
@@ -48,4 +49,10 @@ export const createArticleMethod =
   (dispatch) =>
   ({ payload, callback }) => {
     dispatch(createArticleAction({ payload, callback }));
+  };
+
+export const updateArticleMethod =
+  (dispatch) =>
+  ({ payload, callback }) => {
+    dispatch(updateArticleAction({ payload, callback }));
   };

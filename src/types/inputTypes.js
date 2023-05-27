@@ -7,6 +7,7 @@ const inputTypes = {
   FILE: 'file',
   SELECT: 'select',
   TEXT_AREA: 'text-area',
+  SEARCH: 'search',
 };
 
 export default inputTypes;

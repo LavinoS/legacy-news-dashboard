@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { merge } from 'lodash';
 
-import {
-  LegacyButton,
-  LegacyDiv,
-  LegacyParagraph,
-} from '../../../../../components';
+import { LegacyDiv, LegacyParagraph } from '../../../../../components';
 import setStatusStyle from './helpers/setStatusStyle';
 import informationTextStyleProps from './styles/informationTextStyleProps';
 import LoaderSpinner from '../../../../../components/ui/LoaderSpinner';
 import articleInformationContainerStyleProps from './styles/articleInformationContainerStyleProps';
 import additionalTitleStyleProps from './styles/additionalTitleStyleProps';
 import DropdownButton from './DropdownButton';
-import ArticleEditor from './ArticleEditor';
 
 export default (props) => {
   const {
@@ -22,24 +17,17 @@ export default (props) => {
       updateArticleStatusMethod,
       receiveArticleMethod,
       createArticleMethod,
+      updateArticleMethod,
     } = {},
     setInjectedContainer,
+    fetching,
+    fetchedArticles,
+    setIsFetching,
   } = props;
-  const [fetchedArticles, setFetchedArticles] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
-
-  useEffect(() => {
-    receiveArticlesMethod({
-      callback: (result) => {
-        setFetchedArticles(result.data);
-        setIsFetching(false);
-      },
-    });
-  }, [isFetching]);
 
   return (
     <LegacyDiv styleProps={articleInformationContainerStyleProps}>
-      {isFetching ? (
+      {fetching ? (
         <LoaderSpinner />
       ) : (
         fetchedArticles.map(
@@ -112,6 +100,8 @@ export default (props) => {
                   deleteArticleMethod,
                   updateArticleStatusMethod,
                   receiveArticleMethod,
+                  updateArticleMethod,
+                  receiveArticlesMethod,
                   createArticleMethod,
                 }}
                 methodsParams={{ _id, status }}
@@ -121,37 +111,6 @@ export default (props) => {
           ),
         )
       )}
-      <LegacyButton
-        styleProps={{
-          ALL_DEVICES: {
-            marginTop: 'auto',
-            width: 'fit-content',
-            alignSelf: 'end',
-            color: '#e91e63',
-            border: '1px solid #e91e63',
-            borderRadius: 8,
-            background: '#FFF',
-            fontWeight: '700',
-            transition: 'all 0.15s ease-in',
-            verticalAlign: 'middle',
-            fontSize: '14px',
-
-            '&:hover': {
-              opacity: '0.75',
-            },
-          },
-        }}
-        onClick={() =>
-          setInjectedContainer(
-            <ArticleEditor
-              injectedMethod={createArticleMethod}
-              setInjectedContainer={setInjectedContainer}
-              {...props}
-            />,
-          )
-        }
-        text="CREATE NEW POST"
-      />
     </LegacyDiv>
   );
 };
