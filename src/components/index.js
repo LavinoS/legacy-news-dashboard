@@ -8,3 +8,7 @@ export { default as LegacyLink } from './LegacyLink';
 
 //UI Elements
 export { default as DarkOverlay } from './ui/darkOverlay';
+export { default as Breadcrumbs } from './ui/breadcrumbs';
+export { default as Spacer } from './ui/Spacer';
+export { default as QuillRenderer } from './ui/quill';
+export { default as CustomSpan } from './ui/CustomSpan';

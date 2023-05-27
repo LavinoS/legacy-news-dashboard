@@ -1,5 +1,14 @@
 import { connect } from 'react-redux';
-import { registerMethod, loginMethod } from '../store/site/siteDispatchProps';
+import {
+  registerMethod,
+  loginMethod,
+  receiveArticlesMethod,
+  deleteArticleMethod,
+  updateArticleStatusMethod,
+  receiveArticleMethod,
+  createArticleMethod,
+  updateArticleMethod,
+} from '../store/site/siteDispatchProps';
 import dispatchPropsBuilder from '../helpers/dispatchPropsBuilder';
 import singleStoreContainer from '../../containers/singleStoreContainer';
 
@@ -11,6 +20,12 @@ export const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatchPropsBuilder({
   registerMethod,
   loginMethod,
+  receiveArticlesMethod,
+  deleteArticleMethod,
+  updateArticleStatusMethod,
+  receiveArticleMethod,
+  createArticleMethod,
+  updateArticleMethod,
 });
 
 export default connect(

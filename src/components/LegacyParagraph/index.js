@@ -7,9 +7,13 @@ const StyledParagraph = styled.p`
   ${(props) => props.theme.toRawCss(props.styleProps)}
 `;
 
-export default ({ className, styleProps, text, children }) => {
+export default ({ className, styleProps, text, onClick, children }) => {
   return (
-    <StyledParagraph className={className} styleProps={styleProps}>
+    <StyledParagraph
+      className={className}
+      styleProps={styleProps}
+      onClick={onClick}
+    >
       {text}
       {children}
     </StyledParagraph>
