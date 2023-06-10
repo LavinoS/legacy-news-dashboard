@@ -1,6 +1,6 @@
 export default [
   {
-    text: 'Title',
+    text: 'Author',
     styleProps: {
       ALL_DEVICES: {
         width: '30%',
@@ -15,10 +15,10 @@ export default [
     },
   },
   {
-    text: 'Author',
+    text: 'Email',
     styleProps: {
       ALL_DEVICES: {
-        width: '20%',
+        width: '30%',
         textAlign: 'start',
         color: '#7b809a',
         textTransform: 'uppercase',
@@ -30,22 +30,7 @@ export default [
     },
   },
   {
-    text: 'Category',
-    styleProps: {
-      ALL_DEVICES: {
-        width: '15%',
-        textAlign: 'start',
-        color: '#7b809a',
-        textTransform: 'uppercase',
-        opacity: '0.7',
-        fontSize: '12px',
-        fontWeight: '700',
-        lineHeight: '16px',
-      },
-    },
-  },
-  {
-    text: 'Publish date',
+    text: 'Function',
     styleProps: {
       ALL_DEVICES: {
         width: '15%',
@@ -60,7 +45,7 @@ export default [
     },
   },
   {
-    text: 'Status',
+    text: 'Joined',
     styleProps: {
       ALL_DEVICES: {
         width: '15%',

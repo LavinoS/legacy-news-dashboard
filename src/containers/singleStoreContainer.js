@@ -13,6 +13,10 @@ export default (props) => {
     receiveArticleMethod,
     createArticleMethod,
     updateArticleMethod,
+    receiveUsersMethod,
+    receiveUserByIdMethod,
+    deleteUserMethod,
+    editUserByIdMethod,
   } = props;
   useUserToken(sessionStorage.getItem('token'));
 
@@ -26,12 +30,15 @@ export default (props) => {
       receiveArticleMethod,
       createArticleMethod,
       updateArticleMethod,
+      receiveUsersMethod,
+      receiveUserByIdMethod,
+      deleteUserMethod,
+      editUserByIdMethod,
     },
   };
 
   return (
     <Suspense fallback={<></>}>
-      <header></header>
       <main>
         <Routes>
           <Route
@@ -46,7 +53,6 @@ export default (props) => {
           />
         </Routes>
       </main>
-      <footer></footer>
     </Suspense>
   );
 };

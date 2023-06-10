@@ -7,6 +7,10 @@ import {
   receiveArticleAction,
   createArticleAction,
   updateArticleAction,
+  receiveUsersAction,
+  receiveUserByIdAction,
+  deleteUserAction,
+  editUserByIdAction,
 } from '../siteActions';
 
 export const registerMethod =
@@ -55,4 +59,28 @@ export const updateArticleMethod =
   (dispatch) =>
   ({ payload, callback }) => {
     dispatch(updateArticleAction({ payload, callback }));
+  };
+
+export const receiveUsersMethod =
+  (dispatch) =>
+  ({ params, callback }) => {
+    dispatch(receiveUsersAction({ params, callback }));
+  };
+
+export const receiveUserByIdMethod =
+  (dispatch) =>
+  ({ payload, callback }) => {
+    dispatch(receiveUserByIdAction({ payload, callback }));
+  };
+
+export const deleteUserMethod =
+  (dispatch) =>
+  ({ payload, callback }) => {
+    dispatch(deleteUserAction({ payload, callback }));
+  };
+
+export const editUserByIdMethod =
+  (dispatch) =>
+  ({ payload, callback }) => {
+    dispatch(editUserByIdAction({ payload, callback }));
   };

@@ -28,6 +28,7 @@ export default forwardRef((props, ref) => {
     hidden,
     value,
     optionStyleProps,
+    resetFilters,
   } = props;
 
   switch (type) {
@@ -40,6 +41,7 @@ export default forwardRef((props, ref) => {
           placeholder={placeholder}
           optionStyleProps={optionStyleProps}
           value={value}
+          resetFilters={resetFilters}
         />
       );
 

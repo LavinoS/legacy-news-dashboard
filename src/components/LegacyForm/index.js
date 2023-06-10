@@ -132,6 +132,7 @@ export default ({
   };
 
   const mergedSubmitButtonStyle = mergeStyles(BUTTON_STYLE, submitButtonStyle);
+  const entityType = formInformation.type || 'news';
 
   return (
     <>
@@ -149,6 +150,7 @@ export default ({
             options = [],
             hidden = false,
             mandatory = false,
+            conditionalOptions,
           } = item;
 
           const fieldContainerMergedStyle = mergeStyles(
@@ -179,6 +181,8 @@ export default ({
                 value={formInformation[id]}
                 onChange={(value) => handleChangeValue(id, value)}
                 onClick={(value) => handleChangeValue(id, value)}
+                conditionalOptions={conditionalOptions}
+                entityType={entityType}
               />
               {[errors].map((error, index) => (
                 <Fragment key={index}>

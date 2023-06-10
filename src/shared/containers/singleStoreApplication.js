@@ -8,6 +8,10 @@ import {
   receiveArticleMethod,
   createArticleMethod,
   updateArticleMethod,
+  receiveUsersMethod,
+  receiveUserByIdMethod,
+  deleteUserMethod,
+  editUserByIdMethod,
 } from '../store/site/siteDispatchProps';
 import dispatchPropsBuilder from '../helpers/dispatchPropsBuilder';
 import singleStoreContainer from '../../containers/singleStoreContainer';
@@ -26,6 +30,10 @@ const mapDispatchToProps = dispatchPropsBuilder({
   receiveArticleMethod,
   createArticleMethod,
   updateArticleMethod,
+  receiveUsersMethod,
+  receiveUserByIdMethod,
+  deleteUserMethod,
+  editUserByIdMethod,
 });
 
 export default connect(

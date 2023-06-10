@@ -92,3 +92,43 @@ export const updateArticleAction =
       callback(json);
     }
   };
+
+export const receiveUsersAction =
+  ({ params, callback }) =>
+  async () => {
+    const { json, status } = await api.user.receive(params);
+
+    if (callback && typeof callback === 'function' && status === 200) {
+      callback(json);
+    }
+  };
+
+export const receiveUserByIdAction =
+  ({ payload, callback }) =>
+  async () => {
+    const { json } = await api.user.receiveUser(payload);
+
+    if (callback && typeof callback === 'function') {
+      callback(json);
+    }
+  };
+
+export const deleteUserAction =
+  ({ payload, callback }) =>
+  async () => {
+    const { status, json } = await api.user.delete(payload);
+
+    if (callback && typeof callback === 'function' && status === 200) {
+      callback(json);
+    }
+  };
+
+export const editUserByIdAction =
+  ({ payload, callback }) =>
+  async () => {
+    const { status, json } = await api.user.edit(payload);
+
+    if (callback && typeof callback === 'function' && status === 200) {
+      callback(json);
+    }
+  };

@@ -13,7 +13,7 @@ import { NewsBuilderContainer } from '../../index';
 
 export default (props) => {
   const {
-    containerText = 'Create new article',
+    containerText = 'Create new post',
     injectedMethod,
     setInjectedContainer,
     injectedMethods,

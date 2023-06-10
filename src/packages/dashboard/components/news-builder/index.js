@@ -35,20 +35,13 @@ export default (props) => {
   const [isFetching, setIsFetching] = useState(true);
   const [articleFilters, setArticleFilters] = useState({});
   const [pageCount, setPageCount] = useState(1);
+  const [resetFilters, setResetFilters] = useState(false);
 
   const { fetchedInformation, fetchedArticles, totalArticles } =
     fetchedEntities;
 
   const handleResetFilters = () => {
-    const defaultFilters = articleFilters.reduce((prev, curr) => {
-      return {
-        ...prev,
-        [curr]: '',
-        limit: 5,
-      };
-    }, {});
-
-    setArticleFilters(defaultFilters);
+    setResetFilters(true);
   };
 
   useEffect(() => {
@@ -93,6 +86,8 @@ export default (props) => {
         filterConfiguration={newsFilterConfiguration}
         setFilters={setArticleFilters}
         setIsFetching={setIsFetching}
+        resetFilters={resetFilters}
+        setResetFilters={setResetFilters}
       >
         <ArticleInformationLabels />
         <ArticleInformation

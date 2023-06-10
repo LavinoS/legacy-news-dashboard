@@ -106,7 +106,7 @@ export default [
   {
     id: 'author',
     type: inputTypes.TEXT,
-    placeholder: 'Enter author name',
+    placeholder: 'Edit author name',
     label: 'Author name',
     mandatory: true,
     fieldContainerStyleProps: {
@@ -126,44 +126,6 @@ export default [
         borderRadius: '6px',
         padding: '10px 12px',
         color: '#7b809a',
-        '&:focus-visible': {
-          outline: 'solid #42424a',
-        },
-        '&::placeholder': {
-          color: '#7b809a',
-          fontSize: '14px',
-        },
-      },
-    },
-  },
-  {
-    id: 'type',
-    type: inputTypes.SELECT,
-    placeholder: 'Select post type',
-    label: 'Post type',
-    mandatory: true,
-    options: [
-      { label: 'Blog', value: 'blog' },
-      { label: 'News', value: 'news' },
-    ],
-    fieldContainerStyleProps: {
-      ALL_DEVICES: {
-        margin: '16px 0',
-        gridRowStart: '6',
-        gridColumnStart: '1',
-        gridRowEnd: '7',
-        gridColumnEnd: '2',
-      },
-    },
-    labelStyleProps: {},
-    fieldStyleProps: {
-      ALL_DEVICES: {
-        appearance: 'none',
-        border: '1px solid #d2d6da',
-        borderRadius: '6px',
-        padding: '10px 12px',
-        color: '#7b809a',
-        fontSize: '14px',
         '&:focus-visible': {
           outline: 'solid #42424a',
         },
@@ -232,6 +194,47 @@ export default [
         borderRadius: '6px',
         padding: '10px 12px',
         color: '#7b809a',
+        '&:focus-visible': {
+          outline: 'solid #42424a',
+        },
+        '&::placeholder': {
+          color: '#7b809a',
+          fontSize: '14px',
+        },
+      },
+    },
+  },
+  {
+    id: 'category',
+    type: inputTypes.SELECT,
+    placeholder: 'Select category',
+    label: 'Category',
+    mandatory: true,
+    options: [
+      { label: 'Sport', value: 'sport' },
+      { label: 'Politics', value: 'politics' },
+      { label: 'Social', value: 'social' },
+      { label: 'External', value: 'external' },
+      { label: 'Economics', value: 'economics' },
+    ],
+    fieldContainerStyleProps: {
+      ALL_DEVICES: {
+        margin: '16px 0',
+        gridRowStart: '6',
+        gridColumnStart: '1',
+        gridRowEnd: '7',
+        gridColumnEnd: '2',
+      },
+    },
+    labelStyleProps: {},
+    fieldStyleProps: {
+      ALL_DEVICES: {
+        appearance: 'none',
+        border: '1px solid #d2d6da',
+        borderRadius: '6px',
+        padding: '10px 12px',
+        color: '#7b809a',
+        fontSize: '14px',
         '&:focus-visible': {
           outline: 'solid #42424a',
         },

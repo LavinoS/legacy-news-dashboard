@@ -21,6 +21,7 @@ export default (props) => {
   } = props;
 
   const navigator = useNavigate();
+  const userRole = sessionStorage.getItem('role');
 
   return (
     <LegacyDiv
@@ -46,8 +47,6 @@ export default (props) => {
                 payload: { id: _id },
                 callback: (results) => {
                   if (results.success) {
-                    const isPublished = results.data.status === 'published';
-
                     setIsFetching(true);
                     setInjectedContainer(
                       <ArticleEditor
@@ -55,34 +54,31 @@ export default (props) => {
                         containerText="Edit article"
                         buttonText="EDIT"
                         injectedMethod={updateArticleMethod}
-                        articleId={_id}
                         injectedComponent={
-                          isPublished && (
-                            <LegacyButton
-                              text="EDIT DESIGN"
-                              styleProps={{
-                                ALL_DEVICES: {
-                                  marginTop: 'auto',
-                                  width: 'fit-content',
-                                  alignSelf: 'end',
-                                  color: '#42424a',
-                                  border: '1px solid #42424a',
-                                  borderRadius: 8,
-                                  background: '#FFF',
-                                  fontWeight: '700',
-                                  transition: 'all 0.15s ease-in',
-                                  verticalAlign: 'middle',
-                                  fontSize: '14px',
-                                  marginRight: '14px',
+                          <LegacyButton
+                            text="EDIT DESIGN"
+                            styleProps={{
+                              ALL_DEVICES: {
+                                marginTop: 'auto',
+                                width: 'fit-content',
+                                alignSelf: 'end',
+                                color: '#42424a',
+                                border: '1px solid #42424a',
+                                borderRadius: 8,
+                                background: '#FFF',
+                                fontWeight: '700',
+                                transition: 'all 0.15s ease-in',
+                                verticalAlign: 'middle',
+                                fontSize: '14px',
+                                marginRight: '14px',
 
-                                  '&:hover': {
-                                    opacity: '0.75',
-                                  },
+                                '&:hover': {
+                                  opacity: '0.75',
                                 },
-                              }}
-                              onClick={() => navigator(`/edit-design/${_id}`)}
-                            />
-                          )
+                              },
+                            }}
+                            onClick={() => navigator(`/edit-design/${_id}`)}
+                          />
                         }
                         injectedMethods={props.methods}
                         setInjectedContainer={setInjectedContainer}
@@ -102,6 +98,7 @@ export default (props) => {
                 },
               }),
             status,
+            role: userRole,
           }),
           activeMenuStyle: dropdownMenuStyleProps,
         }}
