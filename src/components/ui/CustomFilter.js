@@ -13,6 +13,8 @@ export default (props) => {
     setIsFetching,
     defaultLimit = 5,
     children,
+    resetFilters,
+    setResetFilters,
   } = props;
 
   if (!fetchedData) {
@@ -40,6 +42,22 @@ export default (props) => {
     debounce((field, value) => handleFilter(field, value), 300),
     [],
   );
+
+  useEffect(() => {
+    if (resetFilters) {
+      setFilterFields(
+        Object.keys(filterFields).reduce((prev, curr) => {
+          return {
+            ...prev,
+            [curr]: '',
+            limit: 5,
+          };
+        }, {}),
+      );
+
+      setResetFilters(false);
+    }
+  }, [resetFilters]);
 
   const handleFilter = (currentFilter, currentValue) => {
     setFilterFields((oldFilter) => ({
@@ -80,6 +98,7 @@ export default (props) => {
                 optionStyleProps={optionStyleProps}
                 onClick={(value) => debounceCall(id, value)}
                 onChange={(value) => debounceCall(id, value)}
+                resetFilters={resetFilters}
               />
             </LegacyDiv>
           );

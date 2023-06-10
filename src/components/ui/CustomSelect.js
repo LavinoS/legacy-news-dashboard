@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LegacyParagraph } from '../index';
 
@@ -67,10 +67,17 @@ export default (props) => {
     optionsConfig,
     optionStyleProps,
     value,
+    resetFilters,
   } = props;
 
   const [openSelect, setOpenSelect] = useState(false);
   const [selectedText, setSelectedText] = useState(value || placeholder);
+
+  useEffect(() => {
+    if (resetFilters) {
+      setSelectedText(placeholder);
+    }
+  }, [resetFilters]);
 
   const handleOpenSelect = () => setOpenSelect((prevState) => !prevState);
 

@@ -1,29 +1,27 @@
 import React from 'react';
-import { merge } from 'lodash';
-import capitalize from 'lodash/capitalize';
 
 import { LegacyDiv, LegacyParagraph } from '../../../../../components';
-import setStatusStyle from './helpers/setStatusStyle';
-import informationTextStyleProps from './styles/informationTextStyleProps';
+import articleInformationContainerStyleProps from '../../news-builder/components/styles/articleInformationContainerStyleProps';
 import LoaderSpinner from '../../../../../components/ui/LoaderSpinner';
-import articleInformationContainerStyleProps from './styles/articleInformationContainerStyleProps';
-import additionalTitleStyleProps from './styles/additionalTitleStyleProps';
-import DropdownButton from './DropdownButton';
+import informationTextStyleProps from '../../news-builder/components/styles/informationTextStyleProps';
+import additionalTitleStyleProps from '../../news-builder/components/styles/additionalTitleStyleProps';
+import mergeStyles from '../../../../../helpers/mergeStyles';
+import capitalize from 'lodash/capitalize';
+import setRoleStyle from '../helpers/setRoleStyle';
+import EditUserDropdownButton from './EditUserDropdownButton';
 
 export default (props) => {
   const {
     methods: {
-      deleteArticleMethod,
-      receiveArticlesMethod,
-      updateArticleStatusMethod,
-      receiveArticleMethod,
-      createArticleMethod,
-      updateArticleMethod,
+      receiveUserByIdMethod,
+      deleteUserMethod,
+      receiveUsersMethod,
+      editUserByIdMethod,
     } = {},
     setInjectedContainer,
     fetching,
-    fetchedArticles,
     setIsFetching,
+    fetchedUsers,
   } = props;
 
   return (
@@ -31,14 +29,18 @@ export default (props) => {
       {fetching ? (
         <LoaderSpinner />
       ) : (
-        fetchedArticles.map(
-          ({ title, author, category, publishDate, status, _id }, index) => (
+        fetchedUsers.map(
+          (
+            { firstName, lastName, userEmail, role, registeredAt, _id },
+            index,
+          ) => (
             <LegacyDiv
               key={index}
               styleProps={{
                 ALL_DEVICES: {
                   padding: '12px 0',
                   borderTop: '1px solid #E8E8E8',
+                  justifyContent: 'start',
                 },
               }}
             >
@@ -48,8 +50,8 @@ export default (props) => {
                 }}
               >
                 <LegacyParagraph
-                  text={title}
-                  styleProps={merge(
+                  text={`${firstName} ${lastName}`}
+                  styleProps={mergeStyles(
                     informationTextStyleProps,
                     additionalTitleStyleProps,
                   )}
@@ -57,11 +59,11 @@ export default (props) => {
               </LegacyDiv>
               <LegacyDiv
                 styleProps={{
-                  ALL_DEVICES: { width: '20%', justifyContent: 'start' },
+                  ALL_DEVICES: { width: '30%', justifyContent: 'start' },
                 }}
               >
                 <LegacyParagraph
-                  text={author}
+                  text={userEmail}
                   styleProps={informationTextStyleProps}
                 />
               </LegacyDiv>
@@ -71,8 +73,8 @@ export default (props) => {
                 }}
               >
                 <LegacyParagraph
-                  text={capitalize(category)}
-                  styleProps={informationTextStyleProps}
+                  text={capitalize(role)}
+                  styleProps={setRoleStyle(role)}
                 />
               </LegacyDiv>
               <LegacyDiv
@@ -81,7 +83,7 @@ export default (props) => {
                 }}
               >
                 <LegacyParagraph
-                  text={publishDate}
+                  text={registeredAt}
                   styleProps={informationTextStyleProps}
                 />
               </LegacyDiv>
@@ -90,24 +92,18 @@ export default (props) => {
                   ALL_DEVICES: { width: '15%', justifyContent: 'start' },
                 }}
               >
-                <LegacyParagraph
-                  text={status}
-                  styleProps={setStatusStyle(status)}
+                <EditUserDropdownButton
+                  methodsParams={{ _id }}
+                  methods={{
+                    receiveUserByIdMethod,
+                    deleteUserMethod,
+                    receiveUsersMethod,
+                    editUserByIdMethod,
+                  }}
+                  setIsFetching={setIsFetching}
+                  setInjectedContainer={setInjectedContainer}
                 />
               </LegacyDiv>
-              <DropdownButton
-                setIsFetching={setIsFetching}
-                methods={{
-                  deleteArticleMethod,
-                  updateArticleStatusMethod,
-                  receiveArticleMethod,
-                  updateArticleMethod,
-                  receiveArticlesMethod,
-                  createArticleMethod,
-                }}
-                methodsParams={{ _id, status }}
-                setInjectedContainer={setInjectedContainer}
-              />
             </LegacyDiv>
           ),
         )

@@ -107,15 +107,19 @@ export default forwardRef(
                 styleProps={activeMenuStyle}
                 onClick={handleOpenMenu}
               >
-                {optionsConfig.map(({ styleProps, onClick, text }, index) => (
-                  <Fragment key={index}>
-                    <LegacyLink
-                      text={text}
-                      onClick={onClick}
-                      styleProps={styleProps}
-                    />
-                  </Fragment>
-                ))}
+                {optionsConfig.map(
+                  ({ styleProps, onClick, text, disabled = false }, index) => (
+                    <Fragment key={index}>
+                      {!disabled && (
+                        <LegacyLink
+                          text={text}
+                          onClick={onClick}
+                          styleProps={styleProps}
+                        />
+                      )}
+                    </Fragment>
+                  ),
+                )}
               </LegacyDiv>
             )}
           </>

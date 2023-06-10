@@ -34,6 +34,7 @@ const LoginPage = (props) => {
         payload: { ...loginData },
         callback: (result) => {
           sessionStorage.setItem('token', result.token);
+          sessionStorage.setItem('role', result.role);
           redirect('/');
         },
       });

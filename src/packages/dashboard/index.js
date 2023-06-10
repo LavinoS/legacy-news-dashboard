@@ -28,7 +28,7 @@ const Dashboard = (props) => {
     setInjectedContainer(component);
   };
   const handleLogout = () => {
-    sessionStorage.removeItem('token');
+    sessionStorage.clear();
     navigator('/login');
   };
 

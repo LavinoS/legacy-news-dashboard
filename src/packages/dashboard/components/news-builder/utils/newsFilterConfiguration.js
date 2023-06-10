@@ -70,9 +70,9 @@ export default [
     },
   },
   {
-    id: 'type',
+    id: 'category',
     type: inputTypes.SELECT,
-    placeholder: 'Type',
+    placeholder: 'Category',
     fieldContainerStyleProps: {
       ALL_DEVICES: {
         gridArea: '1 / 8 / 2 / 10',
