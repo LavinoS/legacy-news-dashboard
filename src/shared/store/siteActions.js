@@ -132,3 +132,13 @@ export const editUserByIdAction =
       callback(json);
     }
   };
+
+export const receiveStatisticsAction =
+  ({ callback }) =>
+  async () => {
+    const { status, json } = await api.statistics.receive();
+
+    if (callback && typeof callback === 'function' && status === 200) {
+      callback(json);
+    }
+  };

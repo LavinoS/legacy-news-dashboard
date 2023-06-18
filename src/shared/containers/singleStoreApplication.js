@@ -12,6 +12,7 @@ import {
   receiveUserByIdMethod,
   deleteUserMethod,
   editUserByIdMethod,
+  receiveStatisticsMethod,
 } from '../store/site/siteDispatchProps';
 import dispatchPropsBuilder from '../helpers/dispatchPropsBuilder';
 import singleStoreContainer from '../../containers/singleStoreContainer';
@@ -34,6 +35,7 @@ const mapDispatchToProps = dispatchPropsBuilder({
   receiveUserByIdMethod,
   deleteUserMethod,
   editUserByIdMethod,
+  receiveStatisticsMethod,
 });
 
 export default connect(

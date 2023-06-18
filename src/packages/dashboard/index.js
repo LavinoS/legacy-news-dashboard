@@ -19,7 +19,9 @@ import mergeStyles from '../../helpers/mergeStyles';
 import activeMenuButtonStyle from './styles/activeMenuButtonStyle';
 
 const Dashboard = (props) => {
-  const [injectedContainer, setInjectedContainer] = useState(OverviewContainer);
+  const [injectedContainer, setInjectedContainer] = useState(
+    <OverviewContainer {...props} />,
+  );
   const [selectedButton, setSelectedButton] = useState(0);
   const navigator = useNavigate();
 

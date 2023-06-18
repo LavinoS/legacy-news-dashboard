@@ -17,6 +17,7 @@ export default (props) => {
     receiveUserByIdMethod,
     deleteUserMethod,
     editUserByIdMethod,
+    receiveStatisticsMethod,
   } = props;
   useUserToken(sessionStorage.getItem('token'));
 
@@ -34,6 +35,7 @@ export default (props) => {
       receiveUserByIdMethod,
       deleteUserMethod,
       editUserByIdMethod,
+      receiveStatisticsMethod,
     },
   };
 

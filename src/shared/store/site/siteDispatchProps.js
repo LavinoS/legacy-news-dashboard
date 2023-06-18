@@ -11,6 +11,7 @@ import {
   receiveUserByIdAction,
   deleteUserAction,
   editUserByIdAction,
+  receiveStatisticsAction,
 } from '../siteActions';
 
 export const registerMethod =
@@ -83,4 +84,10 @@ export const editUserByIdMethod =
   (dispatch) =>
   ({ payload, callback }) => {
     dispatch(editUserByIdAction({ payload, callback }));
+  };
+
+export const receiveStatisticsMethod =
+  (dispatch) =>
+  ({ callback }) => {
+    dispatch(receiveStatisticsAction({ callback }));
   };
