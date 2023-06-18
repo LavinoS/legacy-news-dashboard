@@ -2,18 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { headingVariants } from '../../types/headingVariants';
 
-const HeadingBase = ({ variant, as: Component = variant, ...props }) => (
-  <Component {...props} />
-);
+const HeadingBase = ({
+  variant,
+  styleProps: _styleProps,
+  as: Component = variant,
+  ...props
+}) => <Component {...props} />;
 
 const StyledHeading = styled(HeadingBase)`
-  margin: 0;
+  text-align: center;
+
+  ${(props) => props.theme.toRawCss(props.styleProps)}
 `;
 
 export default ({
   className,
   variant = headingVariants.H1,
-  style,
+  styleProps,
   text,
   ...otherProps
 }) => {
@@ -21,7 +26,7 @@ export default ({
     <StyledHeading
       variant={variant}
       className={className}
-      style={style}
+      styleProps={styleProps}
       {...otherProps}
     >
       {text}

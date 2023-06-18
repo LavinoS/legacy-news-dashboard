@@ -1,21 +1,12 @@
 import { combineReducers } from 'redux';
-import { GET_ALL_USERS } from './siteActionTypes';
+import { GET_AUTH_USER } from './siteActionTypes';
 
-const initialState = {
-  users: [
-    {
-      id: 'sU7Mjw2TN9id6bMYPdkJA',
-      userName: 'LavinoS',
-      email: 'vasile.mihalache99@gmail.com',
-      password: 'test123',
-    },
-  ],
-};
+const initialState = {};
 
 const appReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case GET_ALL_USERS:
-      return { ...state };
+    case GET_AUTH_USER:
+      return { ...state, authToken: action.data.token };
     default:
       return state;
   }
