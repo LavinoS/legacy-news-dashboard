@@ -1,61 +1,92 @@
 import React, { useContext } from 'react';
 
 import {
-  Breadcrumbs,
   LegacyDiv,
   LegacyHeading,
   LegacyParagraph,
   Spacer,
 } from '../../../components';
-import { headingVariants } from '../../../types/headingVariants';
-import articleRendererMainContainerStyleProps from './styles/articleRendererMainContainerStyleProps';
-import featuredImageContainerStyleProps from './styles/featuredImageContainerStyleProps';
-import informationContainerStyleProps from './styles/informationContainerStyleProps';
-import titleContainerStyleProps from './styles/titleContainerStyleProps';
-import titleStyleProps from './styles/titleStyleProps';
-import publishDateStyleProps from './styles/publishDateStyleProps';
 import ComponentFactory from '../../../context/ComponentFactory';
 
 export default (props) => {
   const {
-    article: { featuredImage, title, publishDate, alt } = {},
+    article: { featuredImage, title, publishDate, alt, author } = {},
     sections,
-    isDesignMode = false,
   } = props;
 
   const PresetsRenderer = useContext(ComponentFactory);
 
   return (
-    <LegacyDiv styleProps={articleRendererMainContainerStyleProps}>
-      <LegacyDiv styleProps={featuredImageContainerStyleProps}>
-        <img
-          src={featuredImage}
-          alt={alt}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-        <LegacyDiv styleProps={informationContainerStyleProps}>
-          <LegacyDiv styleProps={titleContainerStyleProps}>
-            <LegacyHeading
-              text={title}
-              variant={headingVariants.H1}
-              styleProps={titleStyleProps}
-            />
-            <LegacyParagraph
-              text={publishDate}
-              styleProps={publishDateStyleProps}
-            />
-          </LegacyDiv>
+    <LegacyDiv>
+      <LegacyDiv
+        styleProps={{
+          ALL_DEVICES: {
+            flexDirection: 'column',
+            maxWidth: '1440px',
+          },
+        }}
+      >
+        <LegacyDiv
+          styleProps={{
+            ALL_DEVICES: {
+              maxWidth: '920px',
+              margin: '24px 0 0',
+              flexDirection: 'column',
+            },
+          }}
+        >
+          <LegacyHeading
+            styleProps={{
+              ALL_DEVICES: {
+                fontSize: '42px',
+              },
+            }}
+            text={title}
+          />
+          <LegacyParagraph
+            styleProps={{
+              ALL_DEVICES: {
+                width: '100%',
+                color: '#a3a5a8',
+                fontSize: '12px',
+                fontWeight: '500',
+                textTransform: 'uppercase',
+                marginTop: '12px',
+                letterSpacing: '1px',
+              },
+            }}
+            text={`${publishDate} /  BY ${author}`}
+          />
+          <img
+            src={featuredImage}
+            alt={alt}
+            style={{
+              height: '500px',
+              objectFit: 'cover',
+              width: '100%',
+              margin: '24px 0',
+            }}
+          />
+        </LegacyDiv>
+        <LegacyDiv
+          styleProps={{
+            ALL_DEVICES: {
+              flexDirection: 'column',
+              maxWidth: '920px',
+              marginBottom: '40px',
+            },
+          }}
+        >
+          {sections.map(({ type, ...otherProps }, index) => {
+            return (
+              <>
+                <Spacer height="40" />
+                <PresetsRenderer key={index} type={type} {...otherProps} />
+              </>
+            );
+          })}
         </LegacyDiv>
       </LegacyDiv>
-      {!isDesignMode && <Breadcrumbs />}
-      {sections.map(({ type, ...otherProps }, index) => {
-        return (
-          <>
-            <Spacer height="40" />
-            <PresetsRenderer key={index} type={type} {...otherProps} />
-          </>
-        );
-      })}
     </LegacyDiv>
   );
 };

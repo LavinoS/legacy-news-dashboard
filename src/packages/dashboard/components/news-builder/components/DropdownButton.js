@@ -51,7 +51,7 @@ export default (props) => {
                     setInjectedContainer(
                       <ArticleEditor
                         receivedForm={results.data}
-                        containerText="Edit article"
+                        containerText="Edit post"
                         buttonText="EDIT"
                         injectedMethod={updateArticleMethod}
                         injectedComponent={
