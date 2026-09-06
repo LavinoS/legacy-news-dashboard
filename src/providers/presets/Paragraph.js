@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
 
 import alignmentTypes from '../../types/alignmentTypes';
 import paragraphSizes from '../../types/paragraphSizes';
@@ -15,7 +15,7 @@ export default (props) => {
     } = {},
   } = props;
 
-  const parsedContent = ReactHtmlParser(text);
+  const parsedContent = parse(text);
 
   return (
     <LegacyDiv

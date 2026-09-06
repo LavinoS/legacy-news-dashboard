@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 import defaultQuillContainerStyleProps from './styles/defaultQuillContainerStyleProps';
 import mergeStyles from '../../../helpers/mergeStyles';
@@ -24,7 +24,7 @@ export default (props) => {
   useEffect(() => {
     if (quillRef.current) {
       const quill = quillRef.current.getEditor();
-      const delta = quill.clipboard.convert(content);
+      const delta = quill.clipboard.convert({ html: content });
       quill.setContents(delta);
     }
   }, [value]);

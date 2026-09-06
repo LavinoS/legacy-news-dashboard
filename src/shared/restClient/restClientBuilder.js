@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { create } from 'axios';
 
 export default ({ baseUrl, ...extraConfigs }) => {
-  const client = axios.create({
+  const client = create({
     baseURL: baseUrl,
     ...extraConfigs,
   });

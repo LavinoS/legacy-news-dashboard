@@ -2,15 +2,12 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:import/typescript',
     'plugin:promise/recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: ['@typescript-eslint', 'jsx-a11y'],
-  parser: '@typescript-eslint/parser',
+  plugins: ['jsx-a11y'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -30,10 +27,14 @@ module.exports = {
     },
   },
   rules: {
+    'no-unused-vars': [
+      'error',
+      { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+    ],
     'prettier/prettier': [
       'error',
       {
-        singleQuote: true, // only single quotes instead of double
+        singleQuote: true,
         endOfLine: 'auto',
         trailingComma: 'all',
         arrowParens: 'always',
@@ -42,10 +43,6 @@ module.exports = {
     'no-constant-condition': ['error', { checkLoops: false }],
     'react/prop-types': 'off',
     'react/display-name': 0,
-    '@typescript-eslint/strict-boolean-expressions': 0,
-    '@typescript-eslint/no-explicit-any': 0,
-    '@typescript-eslint/restrict-template-expressions': 0,
-    '@typescript-eslint/explicit-function-return-type': 0,
     'react/jsx-filename-extension': 'off',
     'import/no-cycle': 'off',
     'import/first': 'error',

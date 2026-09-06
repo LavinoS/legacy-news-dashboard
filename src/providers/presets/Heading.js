@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
 
 import { LegacyDiv, LegacyHeading } from '../../components';
 import headingSizes from '../../types/headingSizes';
@@ -16,7 +16,7 @@ export default (props) => {
       variant = headingVariants.H1,
     } = {},
   } = props;
-  const parsedContent = ReactHtmlParser(text);
+  const parsedContent = parse(text);
 
   return (
     <LegacyDiv
